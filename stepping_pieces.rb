@@ -15,18 +15,35 @@ module SteppingPieces
     end
   end
 
-  def diag_move
+  def step_move
     possible_moves = []
     self.moves_dirs.each do |spot|
       curr_pos = [self.pos[0] + spot[0], self.pos[1] + spot[1]]
-      if valid_pos?(curr_pos)
+      if valid_pos?(curr_pos) && valid?(curr_pos[0],curr_pos[1])
+        possible_moves << [curr_pos]
+        break if !@board.pos[curr_pos].nil?
+        # if the piece at curr_pos is a different color, BREAK
         x_cord = spot[0] + self.pos[0]
         y_cord = spot[1] + self.pos[1]
-        next if not_valid?(x_cord, y_cord)
-        possible_moves << [x_cord, y_cord]
         curr_pos = [x_cord, y_cord]
       end
+      # x_cord = spot[0] + self.pos[0]
+      # y_cord = spot[1] + self.pos[1]
+      # next if not_valid?(x_cord, y_cord)
     end
     possible_moves
   end
+  #   possible_moves = []
+  #   self.moves_dirs.each do |spot|
+  #     curr_pos = [self.pos[0] + spot[0], self.pos[1] + spot[1]]
+  #     if valid_pos?(curr_pos)
+  #       x_cord = spot[0] + self.pos[0]
+  #       y_cord = spot[1] + self.pos[1]
+  #       next if not_valid?(x_cord, y_cord)
+  #       possible_moves << [x_cord, y_cord]
+  #       curr_pos = [x_cord, y_cord]
+  #     end
+  #   end
+  #   possible_moves
+  # end
 end

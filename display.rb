@@ -15,12 +15,18 @@ class Display < Board
       row.each_with_index do |el,idx2|
         if [idx1,idx2] == @cursor.cursor_pos
           if (idx1 + idx2) % 2 == 0
-           print el.piece.colorize(color: :red, background: :cyan)
+            if el.color.nil?
+              print el.piece.colorize(color: :red, background: :red)
+            else
+              print el.piece.colorize(background: :cyan)
+            end
           else
-           print el.piece.colorize(color: :red, background: :yellow)
+            if el.color.nil?
+              print el.piece.colorize(color: :red, background: :red)
+            else
+              print el.piece.colorize(background: :yellow)
+            end
           end
-          # print @board.board[idx1][idx2].colorize(:white)
-          #include if null peice, colorize backrgound red so cursor will light up.
         else
           if (idx1 + idx2) % 2 == 0
             if el.color.nil?
@@ -35,7 +41,6 @@ class Display < Board
               print el.piece.colorize(color: el.color, background: :yellow)
             end
           end
-          # print @board.board[idx1][idx2].colorize(:blue)
         end
       end
       puts "\n"

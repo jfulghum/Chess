@@ -28,11 +28,21 @@ class Piece
     @board[row][col] = value
   end
 
-  def not_valid?(x,y)
-    x < 0 || x > 8 || y < 0 || y > 8
+  # def not_valid?(x,y)
+  #   x < 0 || x > 8 || y < 0 || y > 8
+  # end
+
+  def valid?(x,y)
+    x > 0 || x < 8 || y > 0 || y < 8
   end
 
-  def valid_pos?(curr_pos)
+  def valid_pos?(next_pos)
+    if @board.pos[next_pos].color == self.color #can't take own piece
+      false
+
+    end
+    true
+
       # if its an enemy its good but break out
       # if friend stop befor it
       #
@@ -97,7 +107,7 @@ end
 
 class NullPiece < Piece
   # include Singleton
-  def initialize(piece = '   ')
+  def initialize(piece = '   ', color = nil)
     @piece = piece
   end
 end
