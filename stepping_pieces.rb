@@ -29,10 +29,4 @@ module SteppingPieces
     end
     possible_moves
   end
-
-  def valid_pos?(curr_pos)
-    # if its an enemy its good but break out
-    # if friend stop befor it
-    #
-  end
 end

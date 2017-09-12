@@ -1,8 +1,10 @@
-require_relative 'board.rb'
+require 'byebug'
+require_relative 'sliding_piece_module.rb'
+require_relative 'stepping_pieces.rb'
 
 class Piece
   attr_accessor :piece, :pos, :color
-  def initialize(piece = "piece ")
+  def initialize(board, color, pos)
     @piece = piece
     @pos = pos
     @color = color
@@ -29,41 +31,73 @@ class Piece
   def not_valid?(x,y)
     x < 0 || x > 8 || y < 0 || y > 8
   end
+
+  def valid_pos?(curr_pos)
+      # if its an enemy its good but break out
+      # if friend stop befor it
+      #
+  end
 end
 
-#
-# class Bishop < Piece
-#   include SlidingPieces
-# end
-#
-# class Queen < Piece
-#   include SlidingPieces
-# end
-#
-# class Rook < Piece
-#   include SlidingPieces
-# end
-#
-class Pawn < Piece
-  def initialize(piece = "pawn")
+
+class Bishop < Piece
+  include SlidingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
     @piece = piece
+    color == :black ? @piece = " \u265D " : @piece = " \u2657 "
   end
-  # include SteppingPieces
+end
+
+class Queen < Piece
+  include SlidingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
+    @piece = piece
+    color == :black ? @piece = " \u265B " : @piece = " \u2655 "
+  end
+end
+
+class Rook < Piece
+  include SlidingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
+    @piece = piece
+    color == :black ? @piece = " \u265C " : @piece = " \u2656 "
+  end
+end
+
+class Pawn < Piece
+  include SteppingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
+    @piece = piece
+    color == :black ? @piece = " \u265F " : @piece = " \u2659 "
+  end
 end
 #
-# class Knight < Piece
-#   include SteppingPieces
-# end
-#
-# class King < Piece
-#   include SteppingPieces
-# end
+class Knight < Piece
+  include SteppingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
+    @piece = piece
+    color == :black ? @piece = " \u265E " : @piece = " \u2658 "
+  end
+end
+
+class King < Piece
+  include SteppingPieces
+  def initialize(board, color = nil, pos)
+    super(board, color, pos)
+    @piece = piece
+    color == :black ? @piece = " \u265A " : @piece = " \u2654 "
+  end
+end
 
 
 class NullPiece < Piece
-
-    def initialize(piece = 'nil  ')
-      @piece = piece
-    end
-
+  # include Singleton
+  def initialize(piece = '   ')
+    @piece = piece
+  end
 end
